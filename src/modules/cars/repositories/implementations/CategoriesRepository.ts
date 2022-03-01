@@ -7,31 +7,37 @@ import {
 
 class CategoryRepository implements ICategoryRepository {
   //   private categories: Category[];
-  private static INSTANCE: CategoryRepository;
+  // private static INSTANCE: CategoryRepository;
   private repository: Repository<Category>;
 
-  private constructor() {
+  constructor() {
     this.repository = getRepository(Category);
   }
 
-  static getInstance(): CategoryRepository {
-    if (!CategoryRepository.INSTANCE) {
-      CategoryRepository.INSTANCE = new CategoryRepository();
-    }
-    return CategoryRepository.INSTANCE;
-  }
+  // static getInstance(): CategoryRepository {
+  //   if (!CategoryRepository.INSTANCE) {
+  //     CategoryRepository.INSTANCE = new CategoryRepository();
+  //   }
+  //   return CategoryRepository.INSTANCE;
+  // }
 
-  create({ name, description }: ICategoryRepositoryDTO): Category {
+  async create({
+    name,
+    description,
+  }: ICategoryRepositoryDTO): Promise<Category> {
     const category = this.repository.create({
       name,
       description,
     });
 
+    await this.repository.save(category);
+
     return category;
   }
 
-  list(): Category[] {
-    return [];
+  async list(): Promise<Category[]> {
+    const categories = await this.repository.find();
+    return categories;
   }
 }
 
