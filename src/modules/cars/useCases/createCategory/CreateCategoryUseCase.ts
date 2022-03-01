@@ -6,7 +6,11 @@ import {
 class CreateCategoryUseCase {
   constructor(private categoryRepositories: ICategoryRepository) {}
   execute({ name, description }: ICategoryRepositoryDTO) {
-    this.categoryRepositories.create({ name, description });
+    const category = this.categoryRepositories.create({
+      name,
+      description,
+    });
+    return category;
   }
 }
 
