@@ -11,7 +11,7 @@ class CreateSpecificationUseCase {
     private specificationRepository: ISpecificationsRepository
   ) {}
   execute({ name, description }: ICreateSpecificationDTO) {
-    this.specificationRepository.create({ name, description });
+    return this.specificationRepository.create({ name, description });
   }
 }
 
