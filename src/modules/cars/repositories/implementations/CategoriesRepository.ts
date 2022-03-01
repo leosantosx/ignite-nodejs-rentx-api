@@ -22,21 +22,16 @@ class CategoryRepository implements ICategoryRepository {
   }
 
   create({ name, description }: ICategoryRepositoryDTO): Category {
-    const category = new Category();
-
-    Object.assign(category, {
+    const category = this.repository.create({
       name,
       description,
-      created_at: new Date(),
     });
-
-    // this.categories.push(category);
 
     return category;
   }
 
   list(): Category[] {
-    // return this.categories;
+    return [];
   }
 }
 
