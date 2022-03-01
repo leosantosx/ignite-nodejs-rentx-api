@@ -2,14 +2,20 @@ import {
   ICategoryRepository,
   ICategoryRepositoryDTO,
 } from "../../repositories/ICategoriesRepository";
+import { inject, injectable } from "tsyringe";
 
+@injectable()
 class CreateCategoryUseCase {
-  constructor(private categoryRepositories: ICategoryRepository) {}
+  constructor(
+    @inject("CategoriesRepository")
+    private categoriesRepository: ICategoryRepository
+  ) {}
   execute({ name, description }: ICategoryRepositoryDTO) {
-    const category = this.categoryRepositories.create({
+    const category = this.categoriesRepository.create({
       name,
       description,
     });
+
     return category;
   }
 }
