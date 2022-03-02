@@ -28,6 +28,10 @@ class UsersRepository implements IUsersRepository {
 
     return user;
   }
+
+  async list(): Promise<User[]> {
+    return await this.repository.find();
+  }
 }
 
 export { UsersRepository };
